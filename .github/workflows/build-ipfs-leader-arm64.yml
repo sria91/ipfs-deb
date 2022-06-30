@@ -1,4 +1,4 @@
-name: build-ipfs-leader-amd64
+name: build-ipfs-leader-arm64
 
 on:
   push:
@@ -7,23 +7,27 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/setup-go@v2
         with:
           go-version: 1.17.11
       - name: build
         run: |
+          dpkg --add-architecture arm64
+          apt update
+          apt install -y gcc-8-aarch64-linux-gnu
           git clone --depth 1 --branch v0.12.2 https://github.com/ipfs/go-ipfs.git
           cd go-ipfs
-          make build
+          export CC=aarch64-linux-gnu-gcc-8
+          make build GOOS=linux GOARCH=arm64 GOTAGS=openssl CGO_ENABLED=1
       - uses: actions/upload-artifact@v2
         with:
           name: ipfs
           path: go-ipfs/cmd/ipfs/ipfs
   package:
     needs: build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v3
       - uses: actions/download-artifact@v2
@@ -33,10 +37,10 @@ jobs:
         with:
           name: ipfs
           version: 0.12.2
-          arch: amd64
+          arch: arm64
           format: deb
           package: ipfs-leader-package.yaml
       - uses: actions/upload-artifact@v2
         with:
-          name: ipfs_0.12.2-1_amd64.deb
-          path: ipfs_0.12.2-1_amd64.deb
+          name: ipfs_0.12.2-1_arm64.deb
+          path: ipfs_0.12.2-1_arm64.deb
