@@ -17,12 +17,10 @@ jobs:
           git clone --depth 1 --branch v0.12.2 https://github.com/ipfs/go-ipfs.git
           cd go-ipfs
           make build
-          cd ..
-          cp go-ipfs/cmd/ipfs/ipfs ipfs
       - uses: actions/upload-artifact@v2
         with:
           name: ipfs
-          path: ipfs
+          path: go-ipfs/cmd/ipfs/ipfs
   package:
     needs: build
     runs-on: ubuntu-latest
@@ -38,3 +36,7 @@ jobs:
           arch: amd64
           format: deb
           package: ipfs-leader-amd64-package.yaml
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ipfs_0.12.2-1_amd64.deb
+          path: ipfs_0.12.2-1_amd64.deb
