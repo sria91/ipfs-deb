@@ -6,6 +6,7 @@ meta:
 files:
   "/usr/local/bin/ipfs":
     file: ipfs
+    mode: "0755"
 units:
   - etc/systemd/system/ipfs.service
 scripts:
