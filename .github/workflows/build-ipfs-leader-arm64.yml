@@ -14,6 +14,7 @@ jobs:
           go-version: 1.17.11
       - name: build
         run: |
+          sudo dpkg --add-architecture arm64
           echo "deb [arch=arm64] http://ports.ubuntu.com/ focal main multiverse restricted universe" | sudo tee /etc/apt/sources.list.d/arm46-sources.list
           sudo apt-get update 
           sudo apt-get install -y gcc-aarch64-linux-gnu
