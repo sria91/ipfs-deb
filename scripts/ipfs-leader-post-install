@@ -1,8 +1,8 @@
 #!/bin/sh
 echo "ipfs-leader-post-install executing"
 
-ipfs init
-ipfs config profile apply flatfs
+/usr/local/bin/ipfs init
+/usr/local/bin/ipfs config profile apply flatfs
 # force QUIC. QUIC and TCP are enabled by default. set TCP to false. will reduce bandwith 
 sed -i 's/"Network": {}/"Network": {"TCP": false}/' ~/.ipfs/config
 
