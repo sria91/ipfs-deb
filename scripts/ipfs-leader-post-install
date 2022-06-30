@@ -10,7 +10,7 @@ sed -i 's/"Network": {}/"Network": {"TCP": false}/' ~/.ipfs/config
 # create a semi-private network (privacy not enforced by a swarm key)
 # if a swarm key is used, need to also export LIBP2P_FORCE_PNET=1
 ipfs bootstrap rm --all 
-ipfs bootstrap add /ip4/127.0.0.1/udp/4001/quic/p2p/DUMMY_KEY_FOR_IPFS_LEADER_BOOTSTRAP_NODE
+ipfs bootstrap add /ip4/$ADDRESS_FOR_IPFS_LEADER_BOOTSTRAP_NODE/udp/4001/quic/p2p/$KEY_FOR_IPFS_LEADER_BOOTSTRAP_NODE
 
 if [ -e /proc/1/root/. ] && [ "$(stat -c %d:%i /)" = "$(stat -c %d:%i /proc/1/root/.)" ]; then 
     echo "Starting service..."
