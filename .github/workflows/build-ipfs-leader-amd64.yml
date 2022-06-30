@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: kentik/pkg@v1
+      - uses: kentik/pkg@v1.0.0-rc8
         with:
           name: ipfs
           version: 0.12.2
