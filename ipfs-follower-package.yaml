@@ -2,7 +2,7 @@ meta:
   description: This service daemonizes ipfs as follower, from the IPFS project.
   license: MIT
   vendor: Emrit Inc <https://www.emrit.io>
-  maintainer: Srikanth Anantharam <srikanth@emrit.io>
+  maintainer: Stuart Woodbury <stuart@emrit.io>, Srikanth Anantharam <srikanth@emrit.io>
 files:
   "/usr/local/bin/ipfs":
     file: ipfs
