@@ -5,6 +5,9 @@ on:
     branches:
         - main
 
+env:
+  IPFS_VERSION: 0.12.2
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -16,11 +19,11 @@ jobs:
       - name: build
         run: |
           sudo mkdir -p /usr/include/aarch64-linux-gnu/openssl
-          sudo cp libssl-dev/usr/include/aarch64-linux-gnu/openssl/opensslconf.h /usr/include/aarch64-linux-gnu/openssl/opensslconf.h
-          sudo cp -r libssl-dev/usr/lib/aarch64-linux-gnu /usr/lib/
+          sudo cp libssl-dev_arm64/usr/include/aarch64-linux-gnu/openssl/opensslconf.h /usr/include/aarch64-linux-gnu/openssl/opensslconf.h
+          sudo cp -r libssl-dev_arm64/usr/lib/aarch64-linux-gnu /usr/lib/
           sudo apt-get update
           sudo apt-get install -y gcc-aarch64-linux-gnu
-          git clone --depth 1 --branch v0.12.2 https://github.com/ipfs/go-ipfs.git
+          git clone --depth 1 --branch v${{ env.IPFS_VERSION }} https://github.com/ipfs/go-ipfs.git
           cd go-ipfs
           export CC=aarch64-linux-gnu-gcc
           make build GOOS=linux GOARCH=arm64 GOTAGS=openssl CGO_ENABLED=1
@@ -39,11 +42,11 @@ jobs:
       - uses: kentik/pkg@v1.0.0-rc8
         with:
           name: ipfs
-          version: 0.12.2
+          version: ${{ env.IPFS_VERSION }}
           arch: arm64
           format: deb
           package: ipfs-leader-package.yaml
       - uses: actions/upload-artifact@v2
         with:
-          name: ipfs_0.12.2-1_arm64.deb
-          path: ipfs_0.12.2-1_arm64.deb
+          name: ipfs_${{ env.IPFS_VERSION }}-1_arm64.deb
+          path: ipfs_${{ env.IPFS_VERSION }}-1_arm64.deb
