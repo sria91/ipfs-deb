@@ -38,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
-          path: ipfs-follower-amd64/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
+          path: ipfs-follower-arm64/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
