@@ -39,7 +39,7 @@ cp $INPUT_DIR/$IPFS_EXECUTABLE ${FULL_NAME}/usr/local/bin/$IPFS_EXECUTABLE
 echo "[Packager] Updating control file version"
 sed -i "s/{{package}}/${PACKAGE_NAME}/g" ${FULL_NAME}/DEBIAN/control
 sed -i "s/{{version}}/${PACKAGE_VERSION}/g" ${FULL_NAME}/DEBIAN/control
-sed -i "s/{{architecture}}/${PACKAGE_CONTROL_ARCH}/g" ${FULL_NAME}/DEBIAN/control
+sed -i "s/{{architecture}}/${PACKAGE_ARCHITECTURE}/g" ${FULL_NAME}/DEBIAN/control
 
 echo "[Packager] Final packaging file structure"
 tree ${FULL_NAME}
