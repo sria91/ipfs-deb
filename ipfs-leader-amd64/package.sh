@@ -14,7 +14,7 @@ INPUT_DIR=$PWD/input
 
 echo "[Packager] Starting in directory: $START_DIR"
 
-echo "[Packager] Preparing temp and out directories"
+echo "[Packager] Preparing temp and output directories"
 rm -rf $TEMP_DIR
 rm -rf $OUTPUT_DIR
 mkdir -p $TEMP_DIR

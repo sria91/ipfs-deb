@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "ipfs-follower-post-install executing"
+echo "ipfs-follower postinst executing"
 
 rm -rf ~/.ipfs
 ipfs init

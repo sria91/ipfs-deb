@@ -1,0 +1,14 @@
+[Unit]
+Description=IPFS Cluster Daemon
+Requires=rc-local.service
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=30
+ExecStart=/usr/local/bin/start-ipfs-cluster.sh
+
+[Install]
+WantedBy=multi-user.target
+RequiredBy=fides.target

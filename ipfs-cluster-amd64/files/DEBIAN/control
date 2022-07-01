@@ -1,0 +1,10 @@
+Package: {{package}}
+Version: {{version}}
+Vendor: Emrit Inc <https://www.emrit.io>
+Maintainer: Stuart Woodbury <stuart@emrit.io>, Srikanth Anantharam <srikanth@emrit.io>
+Description: This service daemonizes ipfs-cluster, from the IPFS project.
+Section: net
+Priority: required
+Essential: yes
+Architecture: {{architecture}}
+Provides: ipfs-cluster-ctl, ipfs-cluster-service

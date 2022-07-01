@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "ipfs-leader-pre-remove executing"
+echo "ipfs-leader prerm executing"
 
 systemctl disable ipfs
 

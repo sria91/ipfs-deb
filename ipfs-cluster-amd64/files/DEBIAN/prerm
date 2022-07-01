@@ -1,0 +1,10 @@
+#!/bin/sh
+echo "ipfs-cluster prerm executing"
+
+systemctl disable ipfs-cluster
+
+if [ -e /proc/1/root/. ] && [ "$(stat -c %d:%i /)" = "$(stat -c %d:%i /proc/1/root/.)" ]; then 
+    echo "Stopping service..."
+    systemctl stop ipfs-cluster
+    systemctl daemon-reload
+fi

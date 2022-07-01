@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "ipfs-follower-pre-remove executing"
+echo "ipfs-follower prerm executing"
 
 systemctl disable ipfs
 

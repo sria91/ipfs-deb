@@ -1,0 +1,12 @@
+#!/bin/sh
+echo "ipfs-cluster postinst executing"
+
+ipfs-cluster-service init --consensus crdt --force
+
+if [ -e /proc/1/root/. ] && [ "$(stat -c %d:%i /)" = "$(stat -c %d:%i /proc/1/root/.)" ]; then 
+    echo "Starting service..."
+    systemctl daemon-reload
+    systemctl start ipfs-cluster
+fi
+
+systemctl enable ipfs-cluster

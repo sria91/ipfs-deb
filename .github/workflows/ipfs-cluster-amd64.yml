@@ -1,0 +1,36 @@
+name: ipfs-cluster-amd64
+
+on:
+  push:
+    branches:
+        - main
+
+env:
+  IPFS_CLUSTER_VERSION: 1.0.1
+  PACKAGE_NAME: ipfs-cluster
+  PACKAGE_VERSION: 1.0.1
+  PACKAGE_REVISION: 1
+  PACKAGE_ARCHITECTURE: amd64
+
+jobs:
+  build-package-upload:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.17.11
+      - name: build-and-package
+        run: |
+          git clone --depth 1 --branch v${{ env.IPFS_CLUSTER_VERSION }} https://github.com/ipfs/ipfs-cluster.git
+          make -C ipfs-cluster build
+          mkdir ipfs-cluster-amd64/input
+          cp ipfs-cluster/cmd/ipfs-cluster-service/ipfs-cluster-service ipfs-cluster-amd64/input/
+          cp ipfs-cluster/cmd/ipfs-cluster-ctl/ipfs-cluster-ctl ipfs-cluster-amd64/input/
+          cd ipfs-cluster-amd64
+          ./package.sh ${{ env.PACKAGE_NAME }} ${{ env.PACKAGE_VERSION }} ${{ env.PACKAGE_REVISION }} ${{ env.PACKAGE_ARCHITECTURE }}
+      - name: upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
+          path: ipfs-cluster-amd64/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb

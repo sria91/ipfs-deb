@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "ipfs-leader-post-install executing"
+echo "ipfs-leader postinst executing"
 
 rm -rf ~/.ipfs
 ipfs init
