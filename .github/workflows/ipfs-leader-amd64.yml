@@ -1,4 +1,4 @@
-name: build-ipfs-leader-amd64
+name: ipfs-leader-amd64
 
 on:
   push:

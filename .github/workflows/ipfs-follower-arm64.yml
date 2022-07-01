@@ -1,4 +1,4 @@
-name: build-ipfs-leader-arm64
+name: ipfs-follower-arm64
 
 on:
   push:
