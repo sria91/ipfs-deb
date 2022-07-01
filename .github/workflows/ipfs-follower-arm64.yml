@@ -7,16 +7,20 @@ on:
 
 env:
   IPFS_VERSION: 0.12.2
+  PACKAGE_NAME: ipfs-follower
+  PACKAGE_VERSION: 0.12.2
+  PACKAGE_REVISION: 1
+  PACKAGE_ARCHITECTURE: arm64
 
 jobs:
-  build:
+  build-package-upload:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v2
         with:
           go-version: 1.17.11
-      - name: build
+      - name: build-and-package
         run: |
           sudo mkdir -p /usr/include/aarch64-linux-gnu/openssl
           sudo cp libssl-dev_arm64/usr/include/aarch64-linux-gnu/openssl/opensslconf.h /usr/include/aarch64-linux-gnu/openssl/opensslconf.h
@@ -26,26 +30,11 @@ jobs:
           git clone --depth 1 --branch v${{ env.IPFS_VERSION }} https://github.com/ipfs/go-ipfs.git
           export CC=aarch64-linux-gnu-gcc
           make -C go-ipfs build GOOS=linux GOARCH=arm64 GOTAGS=openssl CGO_ENABLED=1
-      - uses: actions/upload-artifact@v2
+          cp go-ipfs/cmd/ipfs/ipfs ipfs-leader-arm64/input/
+          cd ipfs-leader-arm64/
+          ./package.sh ${{ env.PACKAGE_NAME }} ${{ env.PACKAGE_VERSION }} ${{ env.PACKAGE_REVISION }} ${{ env.PACKAGE_ARCHITECTURE }}
+      - name: upload
+        uses: actions/upload-artifact@v2
         with:
-          name: ipfs
-          path: go-ipfs/cmd/ipfs/ipfs
-  package:
-    needs: build
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v2
-        with:
-          name: ipfs
-      - uses: kentik/pkg@v1.0.0-rc8
-        with:
-          name: ipfs
-          version: ${{ env.IPFS_VERSION }}
-          arch: arm64
-          format: deb
-          package: ipfs-follower-package.yaml
-      - uses: actions/upload-artifact@v2
-        with:
-          name: ipfs_${{ env.IPFS_VERSION }}-1_arm64.deb
-          path: ipfs_${{ env.IPFS_VERSION }}-1_arm64.deb
+          name: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
+          path: ipfs-leader-amd64/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb

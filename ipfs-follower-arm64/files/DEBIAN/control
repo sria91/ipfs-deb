@@ -1,0 +1,11 @@
+Package: {{package}}
+Version: {{version}}
+Vendor: Emrit Inc <https://www.emrit.io>
+Maintainer: Stuart Woodbury <stuart@emrit.io>, Srikanth Anantharam <srikanth@emrit.io>
+Description: This service daemonizes ipfs, from the IPFS project, as follower.
+Section: net
+Priority: required
+Essential: yes
+Architecture: {{architecture}}
+Conflicts: ipfs, ipfs-leader
+Provides: ipfs
