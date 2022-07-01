@@ -30,8 +30,9 @@ jobs:
           git clone --depth 1 --branch v${{ env.IPFS_VERSION }} https://github.com/ipfs/go-ipfs.git
           export CC=aarch64-linux-gnu-gcc
           make -C go-ipfs build GOOS=linux GOARCH=arm64 GOTAGS=openssl CGO_ENABLED=1
+          mkdir ipfs-follower-amd64/input
           cp go-ipfs/cmd/ipfs/ipfs ipfs-follower-arm64/input/
-          cd ipfs-follower-arm64/
+          cd ipfs-follower-arm64
           ./package.sh ${{ env.PACKAGE_NAME }} ${{ env.PACKAGE_VERSION }} ${{ env.PACKAGE_REVISION }} ${{ env.PACKAGE_ARCHITECTURE }}
       - name: upload
         uses: actions/upload-artifact@v2
