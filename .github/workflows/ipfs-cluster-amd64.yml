@@ -24,7 +24,6 @@ jobs:
         run: |
           git clone --depth 1 --branch v${{ env.IPFS_CLUSTER_VERSION }} https://github.com/ipfs/ipfs-cluster.git
           make -C ipfs-cluster build
-          mkdir ipfs-cluster-amd64/input
           cp ipfs-cluster/cmd/ipfs-cluster-service/ipfs-cluster-service ipfs-cluster-amd64/input/
           cp ipfs-cluster/cmd/ipfs-cluster-ctl/ipfs-cluster-ctl ipfs-cluster-amd64/input/
           cd ipfs-cluster-amd64
