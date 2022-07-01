@@ -24,9 +24,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gcc-aarch64-linux-gnu
           git clone --depth 1 --branch v${{ env.IPFS_VERSION }} https://github.com/ipfs/go-ipfs.git
-          cd go-ipfs
           export CC=aarch64-linux-gnu-gcc
-          make build GOOS=linux GOARCH=arm64 GOTAGS=openssl CGO_ENABLED=1
+          make -C go-ipfs build GOOS=linux GOARCH=arm64 GOTAGS=openssl CGO_ENABLED=1
       - uses: actions/upload-artifact@v2
         with:
           name: ipfs
