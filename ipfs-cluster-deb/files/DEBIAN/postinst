@@ -3,6 +3,10 @@ echo "ipfs-cluster postinst executing"
 
 ipfs-cluster-service init --consensus crdt --force
 
+echo "export CLUSTER_SECRET=$SECRET_FOR_IPFS_CLUSTER" > /etc/ipfs-cluster/env.sh
+echo "export BOOTSTRAP=/ip4/$ADDRESS_FOR_IPFS_CLUSTER_BOOTSTRAP_NODE/tcp/9096/p2p/$KEY_FOR_IPFS_CLUSTER_BOOTSTRAP_NODE" >> /etc/ipfs-cluster/env.sh
+echo "export CLUSTER_CRDT_TRUSTPEERS=[$BOOTSTRAP]" >> /etc/ipfs-cluster/env.sh
+
 if [ -e /proc/1/root/. ] && [ "$(stat -c %d:%i /)" = "$(stat -c %d:%i /proc/1/root/.)" ]; then 
     echo "Starting service..."
     systemctl daemon-reload

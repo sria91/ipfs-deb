@@ -2,6 +2,7 @@
 echo "ipfs-cluster prerm executing"
 
 systemctl disable ipfs-cluster
+rm -rf /etc/ipfs-cluster
 
 if [ -e /proc/1/root/. ] && [ "$(stat -c %d:%i /)" = "$(stat -c %d:%i /proc/1/root/.)" ]; then 
     echo "Stopping service..."

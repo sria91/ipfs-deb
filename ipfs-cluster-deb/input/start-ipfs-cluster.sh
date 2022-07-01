@@ -1,6 +1,4 @@
 #!/bin/bash
 
-export CLUSTER_SECRET=$SECRET_FOR_IPFS_CLUSTER
-export BOOTSTRAP=/ip4/$ADDRESS_FOR_IPFS_CLUSTER_BOOTSTRAP_NODE/tcp/9096/p2p/$KEY_FOR_IPFS_CLUSTER_BOOTSTRAP_NODE
-export CLUSTER_CRDT_TRUSTPEERS=[$BOOTSTRAP]
+source /etc/ipfs-cluster/env.sh
 ipfs-cluster-service daemon --bootstrap $BOOTSTRAP
