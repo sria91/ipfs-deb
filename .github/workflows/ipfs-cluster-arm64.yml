@@ -1,4 +1,4 @@
-name: ipfs-cluster-amd64
+name: ipfs-cluster-arm64
 
 on:
   push:
@@ -10,7 +10,7 @@ env:
   PACKAGE_NAME: ipfs-cluster
   PACKAGE_VERSION: 1.0.1
   PACKAGE_REVISION: 1
-  PACKAGE_ARCHITECTURE: amd64
+  PACKAGE_ARCHITECTURE: arm64
 
 jobs:
   build-package-upload:
@@ -22,8 +22,14 @@ jobs:
           go-version: 1.17.11
       - name: build-and-package
         run: |
+          sudo mkdir -p /usr/include/aarch64-linux-gnu/openssl
+          sudo cp libssl-dev_arm64/usr/include/aarch64-linux-gnu/openssl/opensslconf.h /usr/include/aarch64-linux-gnu/openssl/opensslconf.h
+          sudo cp -r libssl-dev_arm64/usr/lib/aarch64-linux-gnu /usr/lib/
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu
           git clone --depth 1 --branch v${{ env.IPFS_CLUSTER_VERSION }} https://github.com/ipfs/ipfs-cluster.git
-          make -C ipfs-cluster build
+          export CC=aarch64-linux-gnu-gcc
+          make -C ipfs-cluster build GOOS=linux GOARCH=arm64 GOTAGS=openssl CGO_ENABLED=1
           cp ipfs-cluster/cmd/ipfs-cluster-service/ipfs-cluster-service ipfs-cluster/input/
           cp ipfs-cluster/cmd/ipfs-cluster-ctl/ipfs-cluster-ctl ipfs-cluster/input/
           cd ipfs-cluster
