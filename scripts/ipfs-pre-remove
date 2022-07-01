@@ -1,0 +1,10 @@
+#!/bin/sh
+echo "ipfs-pre-remove executing"
+
+systemctl disable ipfs
+
+if [ -e /proc/1/root/. ] && [ "$(stat -c %d:%i /)" = "$(stat -c %d:%i /proc/1/root/.)" ]; then
+    echo "Stopping service..."
+    systemctl stop ipfs
+    systemctl daemon-reload
+fi

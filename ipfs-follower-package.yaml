@@ -1,5 +1,5 @@
 meta:
-  description: This service daemonizes ipfs as leader, from the IPFS project.
+  description: This service daemonizes ipfs as follower, from the IPFS project.
   license: MIT
   vendor: Emrit Inc <https://www.emrit.io>
   maintainer: Srikanth Anantharam <srikanth@emrit.io>
@@ -10,5 +10,5 @@ files:
 units:
   - etc/systemd/system/ipfs.service
 scripts:
-  "post-install": scripts/ipfs-leader-post-install
+  "post-install": scripts/ipfs-follower-post-install
   "pre-remove": scripts/ipfs-pre-remove

@@ -1,9 +1,15 @@
 #!/bin/sh
-echo "ipfs-leader-post-install executing"
+echo "ipfs-follower-post-install executing"
 
 rm -rf ~/.ipfs
 /usr/local/bin/ipfs init
 /usr/local/bin/ipfs config profile apply flatfs
+# should reduce bandwidth utilization some
+/usr/local/bin/ipfs config profile apply lowpower
+# disable mdns discovery. good for ipv4 hosts
+/usr/local/bin/ipfs config profile apply server
+# helium uses port 8080
+sed -i s/8080/8081/ ~/.ipfs/config
 # force QUIC. QUIC and TCP are enabled by default. set TCP to false. will reduce bandwith
 sed -i 's/"Network": {}/"Network": {"TCP": false}/' ~/.ipfs/config
 

@@ -45,7 +45,7 @@ jobs:
           version: ${{ env.IPFS_VERSION }}
           arch: arm64
           format: deb
-          package: ipfs-leader-package.yaml
+          package: ipfs-follower-package.yaml
       - uses: actions/upload-artifact@v2
         with:
           name: ipfs_${{ env.IPFS_VERSION }}-1_arm64.deb
