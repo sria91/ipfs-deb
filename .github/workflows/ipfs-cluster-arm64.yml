@@ -30,12 +30,12 @@ jobs:
           git clone --depth 1 --branch v${{ env.IPFS_CLUSTER_VERSION }} https://github.com/ipfs/ipfs-cluster.git
           export CC=aarch64-linux-gnu-gcc
           make -C ipfs-cluster build GOOS=linux GOARCH=arm64 GOTAGS=openssl CGO_ENABLED=1
-          cp ipfs-cluster/cmd/ipfs-cluster-service/ipfs-cluster-service ipfs-cluster/input/
-          cp ipfs-cluster/cmd/ipfs-cluster-ctl/ipfs-cluster-ctl ipfs-cluster/input/
-          cd ipfs-cluster
+          cp ipfs-cluster/cmd/ipfs-cluster-service/ipfs-cluster-service ipfs-cluster-deb/input/
+          cp ipfs-cluster/cmd/ipfs-cluster-ctl/ipfs-cluster-ctl ipfs-cluster-deb/input/
+          cd ipfs-cluster-deb
           ./package.sh ${{ env.PACKAGE_NAME }} ${{ env.PACKAGE_VERSION }} ${{ env.PACKAGE_REVISION }} ${{ env.PACKAGE_ARCHITECTURE }}
       - name: upload
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
-          path: ipfs-cluster/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
+          path: ipfs-cluster-deb/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
