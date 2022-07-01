@@ -2,12 +2,12 @@
 echo "ipfs-follower-post-install executing"
 
 rm -rf ~/.ipfs
-/usr/local/bin/ipfs init
-/usr/local/bin/ipfs config profile apply flatfs
+ipfs init
+ipfs config profile apply flatfs
 # should reduce bandwidth utilization some
-/usr/local/bin/ipfs config profile apply lowpower
+ipfs config profile apply lowpower
 # disable mdns discovery. good for ipv4 hosts
-/usr/local/bin/ipfs config profile apply server
+ipfs config profile apply server
 # helium uses port 8080
 sed -i s/8080/8081/ ~/.ipfs/config
 # force QUIC. QUIC and TCP are enabled by default. set TCP to false. will reduce bandwith
@@ -15,8 +15,8 @@ sed -i 's/"Network": {}/"Network": {"TCP": false}/' ~/.ipfs/config
 
 # create a semi-private network (privacy not enforced by a swarm key)
 # if a swarm key is used, need to also export LIBP2P_FORCE_PNET=1
-/usr/local/bin/ipfs bootstrap rm --all
-/usr/local/bin/ipfs bootstrap add /ip4/$ADDRESS_FOR_IPFS_LEADER_BOOTSTRAP_NODE/udp/4001/quic/p2p/$KEY_FOR_IPFS_LEADER_BOOTSTRAP_NODE
+ipfs bootstrap rm --all
+ipfs bootstrap add /ip4/$ADDRESS_FOR_IPFS_LEADER_BOOTSTRAP_NODE/udp/4001/quic/p2p/$KEY_FOR_IPFS_LEADER_BOOTSTRAP_NODE
 
 if [ -e /proc/1/root/. ] && [ "$(stat -c %d:%i /)" = "$(stat -c %d:%i /proc/1/root/.)" ]; then
     echo "Starting service..."
