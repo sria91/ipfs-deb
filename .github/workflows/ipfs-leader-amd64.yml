@@ -8,14 +8,12 @@ on:
 env:
   IPFS_VERSION: 0.12.2
   PACKAGE_NAME: ipfs-leader
+  PACKAGE_VERSION: 0.12.2
   PACKAGE_REVISION: 1
   PACKAGE_ARCHITECTURE: amd64
 
 jobs:
   build-package-upload:
-    env:
-      PACKAGE_VERSION: ${{ env.IPFS_VERSION }}
-      PACKAGE_FILENAME: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -33,5 +31,5 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.PACKAGE_FILENAME }}
-          path: ipfs-leader-amd64/output/build/${{ env.PACKAGE_FILENAME }}
+          name: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
+          path: ipfs-leader-amd64/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
