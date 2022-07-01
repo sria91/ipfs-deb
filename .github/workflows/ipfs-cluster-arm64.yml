@@ -29,6 +29,7 @@ jobs:
           dpkg-deb -xv ./libssl-dev.deb libssl-dev
           sudo mkdir -p /usr/include/aarch64-linux-gnu/openssl
           sudo cp -v ./libssl-dev/usr/include/aarch64-linux-gnu/openssl/opensslconf.h /usr/include/aarch64-linux-gnu/openssl/opensslconf.h
+          sudo cp -rv ./libssl-dev/usr/lib/aarch64-linux-gnu/* /usr/lib/aarch64-linux-gnu/
           sudo apt-get update
           sudo apt-get install -y gcc-aarch64-linux-gnu
           git clone --depth 1 --branch v${{ env.IPFS_CLUSTER_VERSION }} https://github.com/ipfs/ipfs-cluster.git
