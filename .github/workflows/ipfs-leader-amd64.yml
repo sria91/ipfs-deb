@@ -8,13 +8,14 @@ on:
 env:
   IPFS_VERSION: 0.12.2
   PACKAGE_NAME: ipfs-leader
-  PACKAGE_VERSION: ${{ env.IPFS_VERSION }}
   PACKAGE_REVISION: 1
   PACKAGE_ARCHITECTURE: amd64
-  PACKAGE_FILENAME: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
 
 jobs:
   build-package-upload:
+    env:
+      PACKAGE_VERSION: ${{ env.IPFS_VERSION }}
+      PACKAGE_FILENAME: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
