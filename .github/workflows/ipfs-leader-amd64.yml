@@ -22,14 +22,11 @@ jobs:
           go-version: 1.17.11
       - name: build-and-package
         run: |
-          git clone --depth 1 --branch v${{ env.IPFS_VERSION }} https://github.com/ipfs/go-ipfs.git
-          make -C go-ipfs build
-          mkdir ipfs-leader-amd64/input
-          cp go-ipfs/cmd/ipfs/ipfs ipfs-leader-amd64/input/
-          cd ipfs-leader-amd64
+          cd ipfs-deb/ipfs-leader/amd64
+          ./build.sh ${{ env.IPFS_VERSION }}
           ./package.sh ${{ env.PACKAGE_NAME }} ${{ env.PACKAGE_VERSION }} ${{ env.PACKAGE_REVISION }} ${{ env.PACKAGE_ARCHITECTURE }}
       - name: upload
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
-          path: ipfs-leader-amd64/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
+          path: ipfs-deb/ipfs-leader/amd64/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
