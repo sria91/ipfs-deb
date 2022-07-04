@@ -1,9 +1,6 @@
 name: ipfs-cluster-amd64
 
-on:
-  push:
-    branches:
-        - main
+on: [workflow_dispatch]
 
 env:
   IPFS_CLUSTER_VERSION: 1.0.1

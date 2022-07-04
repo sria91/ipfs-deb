@@ -1,9 +1,6 @@
 name: ipfs-leader-amd64
 
-on:
-  push:
-    branches:
-        - main
+on: [workflow_dispatch]
 
 env:
   IPFS_VERSION: 0.12.2
