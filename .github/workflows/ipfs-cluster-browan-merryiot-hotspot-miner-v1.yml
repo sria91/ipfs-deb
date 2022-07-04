@@ -1,4 +1,4 @@
-name: ipfs-follower-arm64
+name: ipfs-cluster-arm64
 
 on:
   push:
@@ -6,10 +6,10 @@ on:
         - main
 
 env:
-  IPFS_VERSION: 0.12.2
-  PACKAGE_NAME: ipfs-follower
-  PACKAGE_VERSION: 0.12.2
-  PACKAGE_REVISION: 1-merryiot-hotspot-miner-v1
+  IPFS_CLUSTER_VERSION: 1.0.1
+  PACKAGE_NAME: ipfs-cluster
+  PACKAGE_VERSION: 1.0.1
+  PACKAGE_REVISION: 1-browan-merryiot-hotspot-miner-v1
   OPENSSL_VERSION: 1.1
   LIBSSL_VERSION: 1.1.1f-1ubuntu2.15
   PACKAGE_ARCHITECTURE: arm64
@@ -24,11 +24,11 @@ jobs:
           go-version: 1.17.11
       - name: build-and-package
         run: |
-          cd ipfs-deb/ipfs-follower/arm64
-          ./build.sh ${{ env.IPFS_VERSION }} ${{ env.OPENSSL_VERSION }} ${{ env.LIBSSL_VERSION }}
+          cd ipfs-cluster-deb
+          ./build_${{ env.PACKAGE_ARCHITECTURE }}.sh ${{ env.IPFS_CLUSTER_VERSION }} ${{ env.OPENSSL_VERSION }} ${{ env.LIBSSL_VERSION }}
           ./package.sh ${{ env.PACKAGE_NAME }} ${{ env.PACKAGE_VERSION }} ${{ env.PACKAGE_REVISION }} ${{ env.PACKAGE_ARCHITECTURE }}
       - name: upload
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
-          path: ipfs-deb/ipfs-follower/arm64/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
+          path: ipfs-cluster-deb/output/build/${{ env.PACKAGE_NAME }}_${{ env.PACKAGE_VERSION }}-${{ env.PACKAGE_REVISION }}_${{ env.PACKAGE_ARCHITECTURE }}.deb
