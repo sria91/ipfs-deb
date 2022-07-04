@@ -1,12 +1,14 @@
 #!/bin/bash
 
 IPFS_CLUSTER_VERSION=$1
+OPENSSL_VERSION=$2
+LIBSSL_VERSION=$3
 
-wget http://ports.ubuntu.com/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.15_arm64.deb -O libssl.deb
+wget http://ports.ubuntu.com/pool/main/o/openssl/libssl${OPENSSL_VERSION}_${LIBSSL_VERSION}_arm64.deb -O libssl.deb
 dpkg-deb -xv ./libssl.deb libssl
 sudo mkdir -p /usr/lib/aarch64-linux-gnu
 sudo cp -rv ./libssl/usr/lib/aarch64-linux-gnu/* /usr/lib/aarch64-linux-gnu/
-wget http://ports.ubuntu.com/pool/main/o/openssl/libssl-dev_1.1.1f-1ubuntu2.15_arm64.deb -O libssl-dev.deb
+wget http://ports.ubuntu.com/pool/main/o/openssl/libssl-dev_${LIBSSL_VERSION}_arm64.deb -O libssl-dev.deb
 dpkg-deb -xv ./libssl-dev.deb libssl-dev
 sudo mkdir -p /usr/include/aarch64-linux-gnu/openssl
 sudo cp -v ./libssl-dev/usr/include/aarch64-linux-gnu/openssl/opensslconf.h /usr/include/aarch64-linux-gnu/openssl/opensslconf.h
