@@ -1,4 +1,4 @@
-name: ipfs-cluster-arm64
+name: ipfs-cluster-browan-merryiot-hotspot-miner-v1
 
 on: [workflow_dispatch]
 
